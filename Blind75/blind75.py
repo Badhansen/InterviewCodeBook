@@ -95,13 +95,13 @@ Counting each string is linear in the size of the string, and we count every str
 Space complexity: O(N * K), total information store in anagrams
 '''
 
-# class Solution:
-#     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-#         anagrams = defaultdict(list)
-#         for word in strs:
-#             sword = ''.join(sorted(word))
-#             anagrams[sword].append(word)
-#         return anagrams.values()
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        anagrams = defaultdict(list)
+        for word in strs:
+            sword = ''.join(sorted(word))
+            anagrams[sword].append(word)
+        return anagrams.values()
 
 '''
 Time complexity: O(N * K log K), where N is the length of strs, and K is the maximum length of a string in strs.
@@ -265,3 +265,77 @@ Time complexity: O(n)
 Space complexity: O(n)
 '''
     
+# Two Pointers
+
+### ------------------------------------------------------------------------
+# Problem 9: https://leetcode.com/problems/valid-palindrome/
+# @Author: Badhan Sen
+
+class Solution:
+    def isPalindrome(self, s: str) -> bool:
+        line = ''
+        for c in s:
+            if c.isalpha() or c.isdigit():
+                line += c.lower()
+        print(line)
+        return line == line[::-1]
+    
+'''
+Time complexity: O(N)
+Space complexity: O(N)
+'''
+
+### ------------------------------------------------------------------------
+# Problem 10: https://leetcode.com/problems/3sum/
+# @Author: Badhan Sen
+
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        result = []
+        for i, n in enumerate(nums):
+            if n > 0:
+                break
+            if i > 0 and n == nums[i - 1]:
+                continue
+            
+            l, r = i + 1, len(nums) - 1
+            while l < r:
+                sum = n + nums[l] + nums[r]
+                if sum > 0:
+                    r -= 1
+                elif sum < 0:
+                    l += 1
+                else:
+                    result.append([n, nums[l], nums[r]])
+                    l += 1
+                    r -= 1
+                    while nums[l] == nums[l - 1] and l < r:
+                        l += 1
+        return result
+    
+'''
+Time complexity: O(n^2)
+Space Complexity: In this example O(1), as the sort method sorts the list in place, meaning it doesn't create a new list. It modifies the original list.
+But it may be from O(log⁡n) to O(n), depending on the implementation of the sorting algorithm. For the purpose of complexity analysis, we ignore the memory required for the output.
+'''
+
+### ------------------------------------------------------------------------
+# Problem 11: https://leetcode.com/problems/container-with-most-water/
+# @Author: Badhan Sen
+
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
+        l, r = 0, len(height) - 1
+        answer = 0
+        while l < r:
+            answer = max(answer, min(height[l], height[r]) * (r - l))
+            if height[l] <= height[r]:
+                l += 1
+            else:
+                r -= 1
+        return answer
+'''
+Time complexity: O(n)
+Space complexity: O(1)
+'''
