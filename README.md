@@ -1,1 +1,655 @@
-# InterviewCodeBook
+# Interview Code Book
+
+### 🔰 Beginner Level
+- 1️⃣ [Arrays & Hashing](#1️⃣-arrays--hashing)
+- 2️⃣ [Strings](#2️⃣-strings)
+- 3️⃣ [Sorting](#3️⃣-sorting)
+### 🟢 Intermediate Level
+- 4️⃣ Stack (Monotonic Stack, Next Greater Element, Valid Parentheses)
+- 5️⃣ Queue & Heap (Priority Queue) (Sliding Window, Top-K Elements)
+- 6️⃣ Linked Lists (Fast & Slow Pointers, Reversing, Merging)
+
+### 🚀 Advanced Level
+- 7️⃣ Trees & Graphs (DFS, BFS, Dijkstra’s Algorithm)
+- 8️⃣ Recursion & Backtracking (Subsets, Permutations, Sudoku Solver)
+- 9️⃣ Dynamic Programming (DP) (Knapsack, Memoization, State Transition)
+- 🔟 Bit Manipulation (XOR Tricks, Counting Bits, Power of Two)
+
+## 1️⃣ Arrays & Hashing
+### Lists
+```python
+names = ['Badhan', 'Anik', 'Alamin']
+ages = [30, 29, 29]
+for name, age in zip(names, ages):
+    print(name, age)
+
+"""Output
+Badhan 30
+Anik 29
+Alamin 29
+"""
+```
+
+### Resizable List Part 1
+
+**Description**:
+Lists in Python are resizable, meaning you can add elements to them using methods like `append()` or `extend()`.
+
+**Example**:
+
+```python
+my_list = [1, 2, 3]
+my_list.append(4)        # Adds a single element to the end
+print(my_list)           # Output: [1, 2, 3, 4]
+```
+
+### Resizable List Part 2
+
+**Description**:
+Lists can also be resized by removing elements using methods like `remove()`, `pop()`, or `del`.
+
+**Example**:
+
+```python
+my_list = [1, 2, 3, 4]
+my_list.pop()            # Removes and returns the last item
+print(my_list)           # Output: [1, 2, 3]
+my_list.remove(2)        # Removes the first occurrence of the value
+print(my_list)           # Output: [1, 3]
+```
+
+### List Concat
+
+**Description**:
+Lists can be concatenated using the `+` operator or the `extend()` method.
+
+**Example**:
+
+```python
+list1 = [1, 2]
+list2 = [3, 4]
+concatenated_list = list1 + list2  # Using +
+print(concatenated_list)           # Output: [1, 2, 3, 4]
+list1.extend(list2)                # Using extend()
+print(list1)                       # Output: [1, 2, 3, 4]
+```
+
+### List Initialization
+
+**Description**:
+Lists can be initialized in various ways, including using list literals or comprehensions.
+
+**Example**:
+
+```python
+empty_list = []                      # Empty list
+list_with_values = [1, 2, 3]         # List with initial values
+list_from_range = list(range(5))     # List from range
+print(list_from_range)               # Output: [0, 1, 2, 3, 4]
+```
+
+### List Clone
+
+**Description**:
+Cloning a list can be done using slicing or the `copy()` method.
+
+**Example**:
+
+```python
+original_list = [1, 2, 3]
+cloned_list = original_list[:]       # Using slicing
+print(cloned_list)                   # Output: [1, 2, 3]
+another_clone = original_list.copy() # Using copy()
+print(another_clone)                 # Output: [1, 2, 3]
+```
+
+### List Comprehension
+
+**Description**:
+List comprehensions provide a concise way to create lists. They consist of brackets containing an expression followed by a `for` clause.
+
+**Example**:
+
+```python
+squares = [x**2 for x in range(5)]
+print(squares)  # Output: [0, 1, 4, 9, 16]
+```
+
+### List methods
+
+```python
+list.pop(i) # O(n)
+list.insert(i, val) # O(n)
+```
+
+### 2D or 3D list
+
+**Description**: 2D and 3D List Comprehension. You want to create a `n x m` or `l x n x m` grids. Just follow the dimension in reverse order.
+
+**Example**:
+```python
+n = 4  # Number of rows
+m = 5  # Number of columns
+default_value = 0  # Default value for each cell
+
+# Create n x m 2D grid
+grid_2d = [[default_value for _ in range(m)] for _ in range(n)]
+
+# Print the 2D grid
+for row in grid_2d:
+    print(row)
+    
+"""Output
+[0, 0, 0, 0, 0]
+[0, 0, 0, 0, 0]
+[0, 0, 0, 0, 0]
+[0, 0, 0, 0, 0]
+"""
+
+l = 3  # Number of layers
+n = 4  # Number of rows
+m = 5  # Number of columns
+default_value = 0  # Default value for each cell
+
+# Create l x n x m 3D grid
+grid_3d = [[[default_value for _ in range(m)] for _ in range(n)] for _ in range(l)]
+
+# Print the 3D grid
+for layer in grid_3d:
+    print("Layer:")
+    for row in layer:
+        print(row)
+
+"""Output
+Layer:
+[0, 0, 0, 0, 0]
+[0, 0, 0, 0, 0]
+[0, 0, 0, 0, 0]
+[0, 0, 0, 0, 0]
+Layer:
+[0, 0, 0, 0, 0]
+[0, 0, 0, 0, 0]
+[0, 0, 0, 0, 0]
+[0, 0, 0, 0, 0]
+Layer:
+[0, 0, 0, 0, 0]
+[0, 0, 0, 0, 0]
+[0, 0, 0, 0, 0]
+"""
+```
+
+### Hashmaps and Hashsets
+**Description**:  
+Hashmaps and Hashsets are data structures that provide efficient storage and retrieval of data using a hash-based mechanism.  
+- **Hashmaps** (or dictionaries in Python) store key-value pairs, allowing quick access to values based on their keys.  
+- **Hashsets** store unique elements and are optimized for fast membership checks.
+
+**Hashmaps Example**:
+```python
+# Initialize a dictionary
+my_dict = {'a': 1, 'b': 2, 'c': 3}
+
+# Access Methods
+value = my_dict.get('d', 0)  # O(1)
+keys = my_dict.keys()        # O(1)
+values = my_dict.values()    # O(1)
+items = my_dict.items()      # O(1)
+
+# Using a for loop
+for key in my_dict:
+    print(key)
+
+# Using the dict.keys() method
+for key in my_dict.keys():
+    print(key)
+
+# Using the dict.values() method
+for value in my_dict.values():
+    print(value)
+
+# Using the dict.items() method
+for key, value in my_dict.items():
+    print(key, value)
+
+# Modification Methods
+popped_value = my_dict.pop('b', 0)  # O(1)
+popped_item = my_dict.popitem()     # O(1), Removes and returns the last inserted item
+my_dict.update({'d': 4, 'e': 5})    # O(k), where k is the number of items being added
+my_dict.clear()                     # O(n)
+copy_dict = my_dict.copy()          # O(n)
+value = my_dict.setdefault('z', 30) # O(1)
+
+# Check Key Existence
+if 'x' in my_dict:  # O(1)
+    print('Key exists')
+
+# Create a dictionary of squares
+squares = {x: x*x for x in range(6)}  # O(n)
+
+# defaultdict
+from collections import defaultdict
+
+# Create a default dictionary with int as the default factory
+# The key will be the default value of int, which is 0.
+dict1 = defaultdict(int)
+
+# Create a defaultdict with -1 as the default value
+dict2 = defaultdict(lambda: -1)
+
+default_dict = defaultdict(int)  # O(1)
+default_dict['a'] += 1           # O(1)
+
+# Counter
+from collections import Counter
+counter = Counter(['a', 'b', 'c', 'a', 'b', 'a'])  # O(n)
+print(counter.most_common(2))  # O(k log k), where k is the number of unique elements
+
+# Tuples as Keys
+tuple_keys = {(1, 2): 'a', (3, 4): 'b'}  # O(1) for access and insertion
+tuple_keys[(5, 6)] = 'c'
+```
+### Time Complexity Table
+
+| **Operation**            | **Time Complexity** |
+|---------------------------|---------------------|
+| Access (`get`, `keys`, etc.) | `O(1)`                |
+| Insert/Update             | `O(1)`                |
+| Delete (`pop`, `popitem`) | `O(1)`                |
+| Copy                      | `O(n)`                |
+| Clear                     | `O(n)`                |
+| Comprehension             | `O(n)`                |
+| `defaultdict` Access      | `O(1)`                |
+| Counter Initialization    | `O(n)`                |
+| Counter `most_common`     | `O(k log k)`          |
+| Tuple Key Access          | `O(1)`                |
+
+**Hashsets Example**:
+```python
+# Set
+s = {1, 2, 3}
+
+s.clear()  # O(1), Clear the set
+
+s = {1, 2, 3}
+s.add(4)  # O(1)
+print("After add(4):", s) # {1, 2, 3, 4}
+
+# Remove element (throws KeyError if item is not present)
+s.remove(2)  # O(1)
+print("After remove(2):", s) # {2, 3, 4}
+
+# Discard element (no error if item is not present)
+s.discard(5)  # O(1)
+s.remove(3)   # O(1)
+print("After discard(5) and remove(3):", s) # {2, 4}
+
+# Pop a random element
+popped_item = s.pop()  # O(1), removes random item (since unordered)
+print(f"Popped item: {popped_item}")
+print("After pop():", s)
+
+# Set Comparisons
+A = {1, 2, 3}
+B = {3, 4, 5}
+
+# Check if sets are disjoint (no common elements)
+print("A.isdisjoint(B):", A.isdisjoint(B))  # False (O(min(len(A), len(B))))
+
+# Check if A is subset of B (A <= B)
+print("A.issubset(B):", A.issubset(B))  # False (O(min(len(A), len(B))))
+
+# Check if A is superset of B (A >= B)
+print("A.issuperset(B):", A.issuperset(B))  # False (O(min(len(A), len(B))))
+
+# Set Operations
+# Difference: Returns elements in A but not in B
+print("A.difference(B):", A.difference(B))  # {1, 2} (O(len(A)))
+
+# Update A with difference of B
+A.difference_update(B)  # O(len(B))
+print("After A.difference_update(B):", A)
+
+# Intersection: Returns elements in both A and B
+A = {1, 2, 3}
+print("A.intersection(B):", A.intersection(B))  # {3} (O(min(len(A), len(B))))
+
+# Update A with intersection of A and B
+A.intersection_update(B)  # O(min(len(A), len(B)))
+print("After A.intersection_update(B):", A)
+
+# Symmetric Difference: Returns elements in A or B but not both
+A = {1, 2, 3}
+print("A.symmetric_difference(B):", A.symmetric_difference(B))  # {1, 2, 4, 5} (O(len(A) + len(B)))
+
+# Update A with symmetric difference of A and B
+A.symmetric_difference_update(B)  # O(len(A) + len(B))
+print("After A.symmetric_difference_update(B):", A)
+
+# Union Operations
+A = {1, 2, 3}
+B = {3, 4, 5}
+
+# Union: Returns elements in A or B (without duplicates)
+print("A.union(B):", A.union(B))  # {1, 2, 3, 4, 5} (O(len(A) + len(B)))
+
+# Update A with the union of A and B
+A.update(B)  # O(len(B))
+print("After A.update(B):", A)
+```
+### Time Complexity Table
+
+| **Operation**                  | **Time Complexity**          |
+|--------------------------------|------------------------------|
+| `add(item)`                    | `O(1)`                      |
+| `remove(item)`                 | `O(1)` (throws `KeyError` if item not found) |
+| `discard(item)`                | `O(1)`                      |
+| `pop()`                        | `O(1)`                      |
+| `isdisjoint(setB)`             | `O(min(len(A), len(B)))`     |
+| `issubset(setB)`               | `O(min(len(A), len(B)))`     |
+| `issuperset(setB)`             | `O(min(len(A), len(B)))`     |
+| `difference(setB)`             | `O(len(A))`                 |
+| `difference_update(setB)`      | `O(len(B))`                 |
+| `intersection(setB)`           | `O(min(len(A), len(B)))`     |
+| `intersection_update(setB)`    | `O(min(len(A), len(B)))`     |
+| `symmetric_difference(setB)`   | `O(len(A) + len(B))`         |
+| `symmetric_difference_update(setB)` | `O(len(A) + len(B))`   |
+| `union(setB)`                  | `O(len(A) + len(B))`         |
+| `update(setB)`                 | `O(len(B))`                 |
+
+### 2️⃣ Strings
+**Description**:  
+In Python, a string is a sequence of characters enclosed within single quotes (`'`), double quotes (`"`), or triple quotes (`'''` or `"""`). 
+
+> Strings are immutable, meaning their content cannot be changed after creation. Python provides a rich set of methods and operations to manipulate and process strings efficiently.
+**Example**:
+```python
+from collections import Counter
+
+# Example string
+s = "hello world"
+print("Original string:", s)  # Output: hello world
+
+# 1. Length of the string
+print("Length of string:", len(s))  # O(1), Output: 11
+
+# 2. Strip whitespace
+s_padded = "   hello world   "
+print("Stripped:", s_padded.strip())  # O(n), Output: hello world
+print("Left Stripped:", s_padded.lstrip())  # O(n), Output: hello world   
+print("Right Stripped:", s_padded.rstrip())  # O(n), Output:    hello world
+
+# 3. Split and join
+fruits = "apple,banana,cherry"
+fruit_list = fruits.split(",")  # O(n)
+print("Split into list:", fruit_list)  # Output: ['apple', 'banana', 'cherry']
+print("Joined with ', ':", ", ".join(fruit_list))  # O(n), Output: apple, banana, cherry
+
+# 4. Finding substrings
+print("First occurrence of 'o':", s.find("o"))  # O(n), Output: 4
+print("Last occurrence of 'o':", s.rfind("o"))  # O(n), Output: 7
+print("Index of 'world':", s.index("world"))  # O(n), Output: 6
+
+# 5. Replace substrings
+print("Replace 'world' with 'Python':", s.replace("world", "Python"))  # O(n), Output: hello Python
+
+# 6. Count occurrences
+print("Count of 'l' in string:", s.count("l"))  # O(n), Output: 3
+
+# 7. Startswith and endswith
+print("Starts with 'hello':", s.startswith("hello"))  # O(n), Output: True
+print("Ends with 'world':", s.endswith("world"))  # O(n), Output: True
+
+# 8. Check for alpha, digit, alphanumeric, and whitespace
+sample = "abc123"
+print("Is alpha:", sample.isalpha())  # O(n), Output: False
+print("Is digit:", "123".isdigit())  # O(n), Output: True
+print("Is alphanumeric:", sample.isalnum())  # O(n), Output: True
+print("Is whitespace:", "   ".isspace())  # O(n), Output: True
+
+# 9. Changing case
+print("Uppercase:", s.upper())  # O(n), Output: HELLO WORLD
+print("Lowercase:", s.lower())  # O(n), Output: hello world
+print("Capitalized:", s.capitalize())  # O(n), Output: Hello world
+print("Title case:", s.title())  # O(n), Output: Hello World
+
+# 10. ASCII and Unicode conversions
+print("ASCII value of 'a':", ord('a'))  # O(1), Output: 97
+print("Character for ASCII 97:", chr(97))  # O(1), Output: a
+
+# 11. Checking substring existence
+print("'world' in string:", "world" in s)  # O(n), Output: True
+
+# Palindrome check
+def is_palindrome(st):
+    st = st.lower()
+    return st == st[::-1]  # O(n)
+
+print("Is 'Madam' a palindrome?", is_palindrome("Madam"))  # Output: True
+
+# Character frequency count
+frequency = Counter(s)  # O(n)
+print("Character frequency:", frequency)  # Output: Counter({'l': 3, 'o': 2, 'h': 1, 'e': 1, ' ': 1, 'w': 1, 'r': 1, 'd': 1})
+
+# Anagram check
+def is_anagram(s1, s2):
+    return sorted(s1) == sorted(s2)  # O(n log n)
+
+print("Is 'listen' an anagram of 'silent'?", is_anagram("listen", "silent"))  # Output: True
+
+# Removing duplicates
+def remove_duplicates(st):
+    return "".join(dict.fromkeys(st))  # O(n)
+
+print("Remove duplicates from 'aabbcc':", remove_duplicates("aabbcc"))  # Output: abc
+```
+### String Operations Time Complexity Table
+
+| **Operation**                     | **Time Complexity** | **Description**                                                                 |
+|------------------------------------|---------------------|---------------------------------------------------------------------------------|
+| `len(s)`                          | `O(1)`              | Get the length of the string.                                                  |
+| `strip()`, `lstrip()`, `rstrip()` | `O(n)`              | Remove leading/trailing whitespace.                                            |
+| `split(delimiter)`                | `O(n)`              | Split the string into a list based on the delimiter.                           |
+| `join(list)`                      | `O(n)`              | Join a list of strings into a single string.                                   |
+| `find(substring)`                 | `O(n)`              | Find the first occurrence of a substring. Returns `-1` if not found.           |
+| `rfind(substring)`                | `O(n)`              | Find the last occurrence of a substring. Returns `-1` if not found.            |
+| `index(substring)`                | `O(n)`              | Find the first occurrence of a substring. Raises `ValueError` if not found.    |
+| `replace(old, new)`               | `O(n)`              | Replace all occurrences of a substring with another substring.                 |
+| `count(substring)`                | `O(n)`              | Count the occurrences of a substring in the string.                            |
+| `startswith(prefix)`              | `O(n)`              | Check if the string starts with the given prefix.                              |
+| `endswith(suffix)`                | `O(n)`              | Check if the string ends with the given suffix.                                |
+| `isalpha()`                       | `O(n)`              | Check if all characters in the string are alphabetic.                          |
+| `isdigit()`                       | `O(n)`              | Check if all characters in the string are digits.                              |
+| `isalnum()`                       | `O(n)`              | Check if all characters in the string are alphanumeric.                        |
+| `isspace()`                       | `O(n)`              | Check if all characters in the string are whitespace.                          |
+| `upper()`, `lower()`              | `O(n)`              | Convert the string to uppercase or lowercase.                                  |
+| `capitalize()`                    | `O(n)`              | Capitalize the first character of the string.                                  |
+| `title()`                         | `O(n)`              | Convert the string to title case.                                              |
+| `ord(char)`                       | `O(1)`              | Get the ASCII value of a character.                                            |
+| `chr(ascii_value)`                | `O(1)`              | Get the character corresponding to an ASCII value.                             |
+| `'substring' in string`           | `O(n)`              | Check if a substring exists in the string.                                     |
+| `st[::-1]`                        | `O(n)`              | Reverse the string (used for palindrome check).                                |
+| `Counter(string)`                 | `O(n)`              | Count the frequency of each character in the string.                           |
+| `sorted(string)`                  | `O(n log n)`        | Sort the characters of the string (used for anagram check).                    |
+| `dict.fromkeys(string)`           | `O(n)`              | Remove duplicates from the string while preserving order.                      |
+
+## 3️⃣ Sorting
+
+### **Sort Ascending**
+
+By default, the `.sort()` method sorts the elements in *ascending* order *in-place*. The return value of the `.sort()` method is `None`. By default, strings are sorted in **lexicographical order.**
+
+```python
+elements = [5, 3, 6, 2, 1]
+elements.sort()
+print(elements) # [1, 2, 3, 5, 6]
+
+elements = ["grape", "apple", "banana", "orange"]
+elements.sort()
+print(elements) # ['apple', 'banana', 'grape', 'orange']
+```
+
+### **Sort Descending**
+
+```python
+def sort(key=None, reverse=False) -> None:
+```
+
+1. The `key` parameter allows us to customize the sorting order. 
+2. The `reverse` parameter is a boolean value that determines whether the list should be sorted in *descending order*. By default, it is set to `False`.
+
+```python
+elements = [5, 3, 6, 2, 1]
+elements.sort(None, True)
+# elements.sort(True)
+print(elements) # [6, 5, 3, 2, 1]
+```
+
+### Sort Custom
+
+We can also specify a custom sorting order by using the `key` parameter in the `.sort()` method. The `key` parameter doesn't accept a value, instead, it accepts a *function* that returns a value to be used for sorting.
+
+```python
+def get_word_length(word: str) -> int:
+    return len(word)
+words = ["apple", "banana", "kiwi", "pear", "watermelon", "blueberry", "cherry"]
+words.sort(key=get_word_length)
+print(words) # ['kiwi', 'pear', 'apple', 'banana', 'cherry', 'blueberry', 'watermelon']
+
+# Problem link: https://leetcode.com/problems/reorder-data-in-log-files/
+# AC, LC:Badhansen
+class Solution:
+    def sort_by_requirements(self, log: str) -> tuple:
+        identifier, content = log.split(" ", 1)
+        if content[0].isdigit():
+            return (1, "", "")
+        else:
+            return (0, content, identifier)
+
+    def reorderLogFiles(self, logs: List[str]) -> List[str]:
+        logs.sort(key=self.sort_by_requirements)
+        return logs
+```
+
+Defining a separate function just to pass it into the `key` parameter of the `.sort()` method can be cumbersome. We can use a *lambda function* to define a function in a single line and pass it directly to the `.sort()` method.
+
+```python
+words = ["apple", "banana", "kiwi", "pear", "watermelon", "blueberry", "cherry"]
+words.sort(key=lambda word: len(word))
+print(words) # ['kiwi', 'pear', 'apple', 'banana', 'cherry', 'blueberry', 'watermelon']
+```
+
+The lambda function `lambda word: len(word)` is equivalent to the function `get_word_length` we defined in the previous example. It takes a word as input and returns the length of the word.
+
+---
+
+To turn a `Counter` object (from Python's `collections` module) into a sorted list, you have a couple of options depending on how you want the sorting to work. Here are common ways to convert a `Counter` to a sorted list:
+
+```python
+from collections import Counter
+
+# Example Counter object
+counter = Counter({'apple': 3, 'banana': 2, 'orange': 5})
+
+# 1. Sort by count (descending order)
+sorted_by_count_desc = sorted(counter.items(), key=lambda x: x[1], reverse=True)
+print("Sorted by count (descending):", sorted_by_count_desc)
+
+# 2. Sort by count (ascending order)
+sorted_by_count_asc = sorted(counter.items(), key=lambda x: x[1])
+print("Sorted by count (ascending):", sorted_by_count_asc)
+
+# 3. Sort by key (alphabetical order)
+sorted_by_key = sorted(counter.items())
+print("Sorted by key:", sorted_by_key)
+
+```
+
+### **Sorted Copy**
+
+There is another way to sort a list in Python, using the `sorted()` function. The `sorted()` function returns a *new list* with the elements sorted in the specified order. The original list remains unchanged.
+
+```python
+words = ["kiwi", "pear", "apple", "banana", "cherry", "blueberry"]
+sorted_words = sorted(words)
+print(sorted_words)# ['apple', 'banana', 'blueberry', 'cherry', 'kiwi', 'pear']
+```
+
+The `sorted()` function takes the list as the first argument and returns a new list with the elements sorted in ascending order by default.
+
+You can also specify the order using the `reverse` parameter:
+
+```python
+numbers = [5, -3, 2, -4, 6, -2, 4]
+sorted_numbers = sorted(numbers, reverse=True)
+print(sorted_numbers)# [6, 5, 4, 2, -2, -3, -4]
+```
+
+You can also pass a custom function to the `key` parameter to specify the sorting criteria.
+
+```python
+numbers = [5, -3, 2, -4, 6, -2, 4]
+sorted_numbers = sorted(numbers, key=abs)
+print(sorted_numbers)# [2, -2, -3, 4, -4, 5, 6]
+```
+
+For the most part, it's similar to the `sort()` method, but it returns a new list instead of modifying the original list.
+
+### Sorting based on values and order
+
+Sort list using first element in increasing order if the first values are equal sort by second value by descending order.
+
+```python
+profits = [1,2,3]
+capital = [0,1,1]
+pairs = [(profits[i], capital[i]) for i in range(len(profits))] # (profit, capital)
+pairs.sort(key=lambda p:(p[1], -p[0]))
+
+print(pairs)
+# [(1, 0), (3, 1), (2, 1)]
+```
+
+### **Time and Space Complexity**
+
+The time complexity of the `.sort()` method is `𝑂(𝑛𝑙𝑜𝑔𝑛)`, where `n` is the number of elements in the list. The space complexity is `𝑂(𝑛)`, where `n` is the number of elements in the list.
+
+***Note*:** Python uses the [Timsort](https://en.wikipedia.org/wiki/Timsort) algorithm for sorting lists. Timsort is a hybrid sorting algorithm derived from merge sort and insertion sort.
+
+### Merge Sort
+
+```python
+# Problem Link: https://leetcode.com/problems/sort-an-array/
+# AC, LC: Badhansen
+class Solution:
+    def mergeSort(self, nums, l, r):
+        if l < r:
+            m = (l + r) // 2
+            self.mergeSort(nums, l, m)
+            self.mergeSort(nums, m + 1, r)
+            self.merge(nums, l, m, r)
+    def merge(self, nums, l, m, r):
+        i = l
+        j = m + 1
+        res = []
+        while i <= m and j <= r:
+            if nums[i] <= nums[j]:
+                res.append(nums[i])
+                i += 1
+            else:
+                res.append(nums[j])
+                j += 1
+        while i <= m:
+            res.append(nums[i])
+            i += 1
+        while j <= r:
+            res.append(nums[j])
+            j += 1
+        index = 0
+        for k in range(l, r + 1):
+            nums[k] = res[index]
+            index += 1
+        
+    def sortArray(self, nums: List[int]) -> List[int]:
+        self.mergeSort(nums, 0, len(nums) - 1)
+        return nums
+```
+
