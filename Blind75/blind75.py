@@ -339,3 +339,96 @@ class Solution:
 Time complexity: O(n)
 Space complexity: O(1)
 '''
+
+# Sliding Window
+
+### ------------------------------------------------------------------------
+# Problem 12: https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+# @Author: Badhan Sen
+
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        res, minimum = 0, float("inf")
+        for price in prices:
+            minimum = min(minimum, price)
+            res = max(res, price - minimum)
+        return res
+'''
+Time complexity: O(n)
+Space complexity: O(1)
+'''
+
+### ------------------------------------------------------------------------
+# Problem 13: https://leetcode.com/problems/longest-substring-without-repeating-characters/
+# @Author: Badhan Sen
+
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        dic = [-1] * 256
+        maxLen, start = 0, -1
+        for i, c in enumerate(s):
+            if dic[ord(c)] > start:
+                start = dic[ord(c)]
+            dic[ord(c)] = i
+            maxLen = max(maxLen, i - start)
+        return maxLen
+'''
+Time complexity: O(n)
+Space complexity: O(1)
+'''
+
+### ------------------------------------------------------------------------
+# Problem 14: https://leetcode.com/problems/longest-repeating-character-replacement/
+# @Author: Badhan Sen
+class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
+        count = defaultdict(int)
+        left, ans, maxCount = 0, 1, 0
+        for right in range(len(s)):
+            count[s[right]] += 1
+            maxCount = max(maxCount, count[s[right]])
+            while (right - left + 1 - maxCount) > k:
+                count[s[left]] -= 1
+                left += 1
+            ans = max(ans, right - left + 1)
+        return ans
+    
+'''
+Time complexity: O(n)
+Space complexity: O(n)
+'''
+
+### ------------------------------------------------------------------------
+# Problem 15: https://leetcode.com/problems/minimum-window-substring/
+# @Author: Badhan Sen
+
+class Solution:
+    def minWindow(self, s: str, t: str) -> str:
+        hash = defaultdict(int)
+        for c in t:
+            hash[c] += 1
+        n, m = len(s), len(t)
+        start, end, maxLen, count = 0, 0, float("inf"), 0
+        index = 0
+        while end < n:
+            if s[end] in hash:
+                hash[s[end]] -= 1
+                if hash[s[end]] >= 0:
+                    count += 1
+            while count == m:
+                if end - start + 1 < maxLen:
+                    maxLen = end - start + 1
+                    index = start
+                if s[start] in hash:
+                    hash[s[start]] += 1
+                    if hash[s[start]] > 0:
+                        count -= 1
+                start += 1
+            end += 1
+        return "" if maxLen == float('inf') else s[index:index+maxLen]
+
+'''
+n = len(s), m = len(t)
+Time complexity: O(n + m)
+Space complexity: O(m)
+'''
