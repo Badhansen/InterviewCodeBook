@@ -361,6 +361,7 @@ print("After A.update(B):", A)
 In Python, a string is a sequence of characters enclosed within single quotes (`'`), double quotes (`"`), or triple quotes (`'''` or `"""`). 
 
 > Strings are immutable, meaning their content cannot be changed after creation. Python provides a rich set of methods and operations to manipulate and process strings efficiently.
+
 **Example**:
 ```python
 from collections import Counter
