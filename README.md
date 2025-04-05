@@ -5,8 +5,8 @@
 - 2️⃣ [Strings](#2️⃣-strings)
 - 3️⃣ [Sorting](#3️⃣-sorting)
 ### 🟢 Intermediate Level
-- 4️⃣ Stack (Monotonic Stack, Next Greater Element, Valid Parentheses)
-- 5️⃣ Queue & Heap (Priority Queue) (Sliding Window, Top-K Elements)
+- 4️⃣ [Stack](#4️⃣-stack)
+- 5️⃣ [Queue & Heap (Priority Queue)](#5️⃣-queue--heap)
 - 6️⃣ Linked Lists (Fast & Slow Pointers, Reversing, Merging)
 
 ### 🚀 Advanced Level
@@ -247,6 +247,18 @@ print(counter.most_common(2))  # O(k log k), where k is the number of unique ele
 # Tuples as Keys
 tuple_keys = {(1, 2): 'a', (3, 4): 'b'}  # O(1) for access and insertion
 tuple_keys[(5, 6)] = 'c'
+
+from collections import Counter
+
+# Sample counter map
+counter_map = Counter({'a': 5, 'b': 1, 'c': 3, 'd': 4})
+
+# Sorting using sorted() function
+sorted_items = sorted(counter_map.items(), key=lambda x: x[1], reverse=True)
+# This will create a list not map
+
+# Printing sorted items
+print(sorted_items) # [('a', 5), ('d', 4), ('c', 3), ('b', 1)]
 ```
 ### Time Complexity Table
 
@@ -620,6 +632,7 @@ The time complexity of the `.sort()` method is `𝑂(𝑛𝑙𝑜𝑔𝑛)`, 
 ```python
 # Problem Link: https://leetcode.com/problems/sort-an-array/
 # AC, LC: Badhansen
+
 class Solution:
     def mergeSort(self, nums, l, r):
         if l < r:
@@ -654,3 +667,255 @@ class Solution:
         return nums
 ```
 
+## 4️⃣ Stack
+**Description**:
+A stack is a collection of elements that follows the Last In, First Out (LIFO) principle. The `push` operation adds an element to the top of the stack, while the `pop` operation removes the top element.
+
+**Example**:
+```python
+stack = []
+
+# Push elements onto the stack
+stack.append(1) # O(1)
+stack.append(2)
+stack.append(3)
+
+print(stack)  # Output: [1, 2, 3]
+
+# Pop elements from the stack
+top_element = stack.pop() # O(1)
+# Check the element
+value = stack[-1] # O(1)
+print(value) # Output: 3
+print(top_element)  # Output: 3
+print(stack)        # Output: [1, 2]
+```
+## 5️⃣ Queue & Heap
+### Queue
+**Description**:
+A queue is a collection of elements that follows the First In, First Out (FIFO) principle. The `enqueue` operation adds an element to the end of the queue, while the `dequeue` operation removes the element from the front of the queue.
+
+**Example**:
+```python
+from collections import deque
+
+queue = deque()
+
+# Enqueue elements
+queue.append(1) # O(1)
+queue.append(2)
+queue.append(3)
+
+print(queue)  # Output: deque([1, 2, 3])
+
+# Dequeue elements
+front_element = queue.popleft() # O(1)
+print(front_element)  # Output: 1
+print(queue)          # Output: deque([2, 3])
+```
+
+### Double Ended Queue (Deque)
+**Description:**
+A deque (double-ended queue) allows you to add or remove elements from both ends (front and back). This provides more flexibility than a regular queue or stack.
+
+**Example**:
+```python
+from collections import deque
+
+deque_obj = deque()
+
+# Add elements to both ends
+deque_obj.append(1)        # O(1), Add to the right
+deque_obj.appendleft(2)    # O(1), Add to the left
+
+print(deque_obj)  # Output: deque([2, 1])
+
+# Remove elements from both ends
+right_element = deque_obj.pop() # O(1)
+left_element = deque_obj.popleft() # O(1)
+
+print(right_element)  # Output: 1
+print(left_element)   # Output: 2
+print(deque_obj)      # Output: deque([])
+
+# Create a deque
+dq = deque([10, 20, 30, 40, 50])
+
+# Access the first element
+first_element = dq[0]  # O(1)
+print("First element:", first_element)
+
+# Access the last element
+last_element = dq[-1]  # O(1)
+print("Last element:", last_element)
+
+# Insert at a specific position (e.g., index 2)
+dq.insert(2, 25)  # O(n)
+print("After insert:", dq)
+
+# Access an element by index (not the ends)
+middle_element = dq[2]  # O(n)
+print("Element at index 2:", middle_element)
+
+# Iterate through all elements
+for elem in dq:  # O(n)
+    print(elem, end=" ")
+```
+**Time Complexity**:
+
+- `append` (add to the right): `O(1)`
+- `appendleft` (add to the left): `O(1)`
+- `pop` (remove from the right): `O(1)`
+- `popleft` (remove from the left): `O(1)`
+
+In python we can traverse stacks, queues, and deques in Python:
+
+- **Stack Traversal**:
+    - Stacks follow the Last In, First Out (LIFO) principle.
+    - Traversing a stack involves iterating over the elements, typically implemented as a list.
+    - Time Complexity: `O(n)`
+- **Queue Traversal**:
+    - Queues follow the First In, First Out (FIFO) principle.
+    - Traversing a queue involves iterating over the elements, often implemented using `collections.deque`.
+    - Time Complexity: `O(n)`
+- **Deque Traversal**:
+    - Deques (double-ended queues) allow elements to be added or removed from both ends.
+    - Traversing a deque involves iterating over the elements, also implemented using `collections.deque`.
+    - Time Complexity: `O(n)`
+
+### Heaps or Priority Queues
+**Description:**
+A Priority Queue is a data structure where elements are dequeued based on priority. Python implements it using the `heapq` module, which provides a min-heap by default.
+
+**Example**:
+```python
+import heapq  # Min-Heap by default
+
+# Initialize an empty list to act as a heap
+heap = []
+
+# Push elements onto the heap
+heapq.heappush(heap, 10)  # O(log n)
+heapq.heappush(heap, 5)   # O(log n)
+heapq.heappush(heap, 15)  # O(log n)
+heapq.heappush(heap, 3)   # O(log n)
+
+print("Heap after pushing elements:", heap)  
+# Output: Heap after pushing elements: [3, 5, 15, 10]
+
+# Pop the smallest element from the heap
+smallest = heapq.heappop(heap)  # O(log n)
+print("Smallest element:", smallest)  
+# Output: Smallest element: 3
+
+print("Heap after popping the smallest element:", heap)  
+# Output: Heap after popping the smallest element: [5, 10, 15]
+
+# Convert a list into a heap
+nums = [5, 7, 9, 1, 3]
+heapq.heapify(nums)  # O(n)
+print("Heapified list:", nums)  
+# Output: Heapified list: [1, 3, 9, 7, 5]
+
+# Push an element into the heap
+heapq.heappush(nums, 4)  # O(log n)
+print("Heap after pushing 4:", nums)  
+# Output: Heap after pushing 4: [1, 3, 4, 7, 5, 9]
+
+# Pop the smallest element from the heap
+value = heapq.heappop(nums)  # O(log n)
+print("Popped smallest element:", value)  
+# Output: Popped smallest element: 1
+
+print("Heap after popping the smallest element:", nums)  
+# Output: Heap after popping the smallest element: [3, 5, 4, 7, 9]
+```
+### Custom Heaps
+**Description:**
+Suppose I have a pairs of integers which represent (cost, profit) of an item.
+By default it is min heap so it will heapify based on first value then second value then third value.
+
+**Example**:
+```python
+import heapq
+
+# Initialize the list of tuples
+elements = [(3, 300), (3, 140), (3, 140), (3, 10), (5, 55), (5, 50), (10, 200), (10, 100)]
+
+# Convert the list to a heap
+heapq.heapify(elements)
+
+print("Heapified list:")
+while elements:
+    val = heapq.heappop(elements)
+    print(val)
+    
+'''
+Heapified list:
+(3, 10)
+(3, 140)
+(3, 140)
+(3, 300)
+(5, 50)
+(5, 55)
+(10, 100)
+(10, 200)
+'''
+```
+> **Now I want to create a heap: Low cost with high profit.**
+
+**Example**:
+```python
+import heapq
+
+elements = [(3, 300), (3, 140), (3, 140), (3, 10), (5, 55), (5, 50), (10, 200), (10, 100)]
+heap = []
+for cost, profit in elements:
+	heapq.heappush(heap, (cost, -profit))
+	
+print("Heapified list:")
+while heap:
+    cost, profit = heapq.heappop(heap)
+    print(cost, -profit)
+    
+'''
+Heapified list:
+3 300
+3 140
+3 140
+3 10
+5 55
+5 50
+10 200
+10 100
+'''
+```
+
+> **Now I want to create a heap: High cost with high profit.**
+
+**Example**
+```python
+import heapq
+
+elements = [(3, 300), (3, 140), (3, 140), (3, 10), (5, 55), (5, 50), (10, 200), (10, 100)]
+heap = []
+for cost, profit in elements:
+	heapq.heappush(heap, (-cost, -profit))
+	
+print("Heapified list:")
+while heap:
+    cost, profit = heapq.heappop(heap)
+    print(-cost, -profit)
+    
+'''
+Heapified list:
+10 200
+10 100
+5 55
+5 50
+3 300
+3 140
+3 140
+3 10
+'''
+```
