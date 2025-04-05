@@ -7,7 +7,7 @@
 ### 🟢 Intermediate Level
 - 4️⃣ [Stack](#4️⃣-stack)
 - 5️⃣ [Queue & Heap (Priority Queue)](#5️⃣-queue--heap)
-- 6️⃣ Linked Lists (Fast & Slow Pointers, Reversing, Merging)
+- 6️⃣ [Linked Lists](#6️⃣-linked-lists)
 
 ### 🚀 Advanced Level
 - 7️⃣ Trees & Graphs (DFS, BFS, Dijkstra’s Algorithm)
@@ -918,4 +918,165 @@ Heapified list:
 3 140
 3 10
 '''
+```
+## 6️⃣ Linked Lists 
+### Singly Linked List
+**Description:**
+A linked list is a linear collection of elements, where each element points to the next element in the sequence. Each element, often called a "node," contains two key pieces of information:
+
+* The data value
+* A reference (or link) to the next node in the sequence
+
+**Example**
+```python
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+        self.tail = None
+        self.size = 0
+    
+    def append(self, data):
+        """Add element to the end of the list with O(1) time complexity"""
+        new_node = Node(data)
+        
+        if self.head is None:
+            # List is empty
+            self.head = new_node
+            self.tail = new_node
+        else:
+            # Add to the end
+            self.tail.next = new_node
+            self.tail = new_node
+            
+        self.size += 1
+    
+    def appendleft(self, data):
+        """Add element to the beginning of the list with O(1) time complexity"""
+        new_node = Node(data)
+        
+        if self.head is None:
+            # List is empty
+            self.head = new_node
+            self.tail = new_node
+        else:
+            # Add to the beginning
+            new_node.next = self.head
+            self.head = new_node
+            
+        self.size += 1
+    
+    def display(self):
+        """Display all elements in the linked list"""
+        current = self.head
+        while current:
+            print(current.data, end=" -> ")
+            current = current.next
+        print("None")
+    
+    def get_size(self):
+        """Return the number of elements in the list"""
+        return self.size
+```
+### Doubly Linked List
+**Description**
+A doubly linked list is a type of linked data structure in which each node contains three components:
+
+* Data: The actual value or information being stored
+* Next pointer: A reference to the next node in the sequence
+* Previous pointer: A reference to the previous node in the sequence
+
+**Example**
+```python
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.prev = None
+        self.next = None
+
+class DoublyLinkedList:
+    def __init__(self):
+        self.head = None
+        self.tail = None
+        self.size = 0
+    
+    # Add a node at the end of the list
+    def append(self, data):
+        new_node = Node(data)
+        if self.head is None:  # If the list is empty
+            self.head = self.tail = new_node
+        else:
+            self.tail.next = new_node  # Link the current tail to the new node
+            new_node.prev = self.tail  # Link the new node back to the current tail
+            self.tail = new_node  # Update the tail reference
+        self.size += 1
+    
+    # Add a node at the beginning of the list
+    def appendleft(self, data):
+        new_node = Node(data)
+        if self.head is None:  # If the list is empty
+            self.head = self.tail = new_node
+        else:
+            new_node.next = self.head  # Link the new node to the current head
+            self.head.prev = new_node  # Link the current head back to the new node
+            self.head = new_node  # Update the head reference
+        self.size += 1
+    
+    # Delete the first node (from the head)
+    def delete_from_head(self):
+        if self.head is None:  # If the list is empty
+            return None
+        
+        current_data = self.head.data  # Store the value of the head
+        
+        # If only one node exists
+        if self.head == self.tail:
+            self.head = self.tail = None
+        else:
+            self.head = self.head.next  # Move the head pointer forward
+            self.head.prev = None  # Remove reference to the deleted node
+        
+        self.size -= 1
+        return current_data
+    
+    # Delete the last node (from the tail)
+    def delete_from_tail(self):
+        if self.tail is None:  # If the list is empty
+            return None
+        
+        current_data = self.tail.data  # Store the value of the tail
+        
+        # If only one node exists
+        if self.head == self.tail:
+            self.head = self.tail = None
+        else:
+            self.tail = self.tail.prev  # Move the tail pointer backward
+            self.tail.next = None  # Remove reference to the deleted node
+        
+        self.size -= 1
+        return current_data
+    
+    # Get the current size of the list
+    def get_size(self):
+        return self.size
+    
+    # Check if the list is empty
+    def is_empty(self):
+        return self.head is None
+    
+    # Display the list in forward order
+    def display(self):
+        if self.is_empty():
+            print("Empty list")
+            return
+            
+        current = self.head
+        while current:
+            print(current.data, end=" <--> ")
+            current = current.next
+        print("None")
 ```
