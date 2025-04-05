@@ -11,7 +11,7 @@
 
 ### 🚀 Advanced Level
 - 7️⃣ [Trees & Graphs](#7️⃣-trees--graphs)
-- 8️⃣ Recursion & Backtracking (Subsets, Permutations, Sudoku Solver)
+- 8️⃣ [Recursion & Backtracking](#8️⃣-recursion--backtracking)
 - 9️⃣ Dynamic Programming (DP) (Knapsack, Memoization, State Transition)
 - 🔟 Bit Manipulation (XOR Tricks, Counting Bits, Power of Two)
 
@@ -1465,3 +1465,74 @@ class Solution:
 Time and space complexity: O(v + e)
 """
 ```
+## 8️⃣ Recursion & Backtracking 
+**1. Subset - I**
+
+Problem link: https://leetcode.com/problems/subsets/
+
+<details>
+
+<summary>Approach-1: Backtracking [Python Code]</summary>
+
+```python
+class Solution:
+    def backtrack(self, start, nums, subset, res):
+        res.append(subset[:]) # res.append(subset.copy())
+        for i in range(start, len(nums)):
+            subset.append(nums[i])
+            self.backtrack(i + 1, nums, subset, res)
+            subset.pop()
+        
+        
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        res = []
+        self.backtrack(0, nums, [], res)
+        return res
+```
+</details>
+
+<details>
+<summary>Approach-2 : Bit Manipulation[Python Code]</summary>
+
+```python
+class Solution:    
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        n = len(nums)
+        total = 1 << n
+        results = []        
+        for i in range(total):
+            res = []
+            for j in range(n):
+                if (i & 1 << j):
+                    res.append(nums[j])
+            results.append(res)
+        return results
+```
+</details>
+
+<details>
+<summary>Approach-3 : Pick & Not Pick - 1 [Python Code]</summary>
+
+```python
+class Solution:
+    def solve(self, nums, i, ans, sub):
+        if i == len(nums):
+            ans.append(sub[:])  # ans.append(sub.copy()), Append a copy of the current subset
+            return
+        
+        # Pick the current element
+        sub.append(nums[i])
+        self.solve(nums, i + 1, ans, sub)
+        sub.pop()  # Backtrack
+        
+        # Don't pick the current element
+        self.solve(nums, i + 1, ans, sub)
+    
+    def subsets(self, nums):
+        ans = []
+        sub = []
+        self.solve(nums, 0, ans, sub)
+        return ans
+```
+</details>
+
