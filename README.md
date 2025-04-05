@@ -10,7 +10,7 @@
 - 6️⃣ [Linked Lists](#6️⃣-linked-lists)
 
 ### 🚀 Advanced Level
-- 7️⃣ Trees & Graphs (DFS, BFS, Dijkstra’s Algorithm)
+- 7️⃣ [Trees & Graphs](#7️⃣-trees--graphs)
 - 8️⃣ Recursion & Backtracking (Subsets, Permutations, Sudoku Solver)
 - 9️⃣ Dynamic Programming (DP) (Knapsack, Memoization, State Transition)
 - 🔟 Bit Manipulation (XOR Tricks, Counting Bits, Power of Two)
@@ -1079,4 +1079,389 @@ class DoublyLinkedList:
             print(current.data, end=" <--> ")
             current = current.next
         print("None")
+```
+
+## 7️⃣ Trees & Graphs 
+### Tree
+
+A **tree** organizes values hierarchically.
+
+![](https://www.interviewcake.com/images/svgs/trees__animal_classes.svg?bust=210)
+
+Each entry in the tree is called a **node**, and every node links to zero or more child nodes.
+
+If you flip the picture upside down, it kind of looks like a tree. That's where the name comes from!
+
+### **Example uses:**
+
+- **Filesystems**—files inside folders inside folders
+- **Comments**—comments, replies to comments, replies to replies
+- **Family trees**—parents, grandparents, children, and grandchildren
+
+### Leaves, Depth, and Height
+
+**Leaf nodes** are nodes that're on the bottom of the tree (more formally: nodes that have no children).
+
+Each node in a tree has a **depth**: the number of links from the root to the node.
+
+A tree's **height** is the number of links from its root to the furthest leaf. (That's the same as the maximum node depth.)
+
+![](https://www.interviewcake.com/images/svgs/trees__depth_height.svg?bust=210)
+
+### Pre Order Traversal
+
+Visit the current node, then walk the left subtree, and finally walk the right subtree.
+
+A pre-order traversal usually visits nodes in the same order as a DFS.
+
+![](https://www.interviewcake.com/images/svgs/trees__pre_order_traversal.svg?bust=210)
+
+### In Order Traversal
+
+Walk the left subtree first, then visit the current node, and finally walk the right subtree.
+
+Of all three traversal methods, this one is probably the most common. When walking a binary search tree, an in order traversal visits the nodes in sorted, ascending order.
+
+![](https://www.interviewcake.com/images/svgs/trees__in_order_traversal.svg?bust=210)
+
+### Post Order Traversal
+
+Walk the left subtree, then the right subtree, and finally visit the current node.
+
+This one's kind of rare ... but it shows up in some parsing algorithms, like [Reverse Polish Notation](https://en.wikipedia.org/wiki/Reverse_Polish_notation).
+
+![](https://www.interviewcake.com/images/svgs/trees__post_order_traversal.svg?bust=210)
+
+###  Binary Trees
+
+A **binary tree** is a tree where every node has at most two children.
+
+![](https://www.interviewcake.com/images/svgs/trees__binary_non_binary.svg?bust=210)
+
+### Full binary trees
+
+A **full binary tree** is a binary tree where every node has exactly 0 or 2 children.
+
+![](https://www.interviewcake.com/images/svgs/trees__full_binary.svg?bust=210)
+
+### Perfect binary trees
+
+A **perfect binary tree** doesn't have room for any more nodes—unless we increase the tree's height.
+
+![](https://www.interviewcake.com/images/svgs/trees__perfect_binary.svg?bust=210)
+
+### Complete binary trees
+
+A **complete binary tree** is like a perfect binary tree missing a few nodes in the last level. Nodes are filled in from left to right.
+
+Complete trees are the basis for heaps and priority queues.
+
+![](https://www.interviewcake.com/images/svgs/trees__complete_binary.svg?bust=210)
+
+### Balanced binary trees
+
+A **balanced binary tree** is a tree whose height is small relative to the number of nodes it has. By small, we usually mean the height is `O(log n)`, where `n` is the number of nodes.
+
+Conceptually, a *balanced* tree "looks full," without any missing chunks or branches that end much earlier than other branches.
+
+There are few different definitions of balanced depending on the context. One of the most common definition is that a tree is balanced if: (a) the heights of its left and right subtrees differ by at most 1, and (b) both subtrees are also balanced.
+
+![](https://www.interviewcake.com/images/svgs/trees__balanced_unbalanced_binary.svg?bust=210)
+
+Similar definitions can be used for trees that have more than two children. For instance, a full *ternary* tree (with up to three children per node) is a tree where every node has zero or three children.
+
+**Example**
+```python
+class TreeNode:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+class Solution:
+    def preorder(self, root):
+        if root is None:
+            return
+        print(root.value, end=" ")
+        self.preorder(root.left)
+        self.preorder(root.right)
+
+    def inorder(self, root):
+        if root is None:
+            return
+        self.inorder(root.left)
+        print(root.value, end=" ")
+        self.inorder(root.right)
+
+    def postorder(self, root):
+        if root is None:
+            return
+        self.postorder(root.left)
+        self.postorder(root.right)
+        print(root.value, end=" ")
+```
+### Graphs
+**Description**
+A graph organizes items in an interconnected network.
+
+Each item is a node (or vertex). Nodes are connected by edges
+
+A graph is composed of nodes (or vertices) that are connected by edges.
+#### Strengths:
+* **Representing links.** Graphs are ideal for cases where you're working with things that connect to other things. Nodes and edges could, for example, respectively represent cities and highways, routers and ethernet cables, or Facebook users and their friendships.
+* **Weaknesses:** Scaling challenges. Most graph algorithms are `O(n log n)` or even slower. Depending on the size of your graph, running algorithms across your nodes may not be feasible.
+
+#### Directed or undirected
+
+In **directed** graphs, edges point from the node at one end to the node at the other end. In **undirected** graphs, the edges simply connect the nodes at each end.
+
+![](https://www.interviewcake.com/images/svgs/graph_coloring__undirected_and_directed_graphs.svg?bust=210)
+
+#### Cyclic or acyclic
+
+A graph is **cyclic** if it has a cycle—an unbroken series of nodes with no repeating nodes or edges that connects back to itself. Graphs without cycles are **acyclic**.
+
+![](https://www.interviewcake.com/images/svgs/graph_coloring__cyclic_and_acyclic_graphs.svg?bust=210)
+
+#### Weighted or unweighted
+
+If a graph is **weighted**, each edge has a "weight." The weight could, for example, represent the distance between two locations, or the cost or time it takes to travel between the locations.
+
+![](https://www.interviewcake.com/images/svgs/graph_coloring__weighted_graph.svg?bust=210)
+
+#### Legal coloring
+
+A **graph coloring** is when you assign colors to each node in a graph. A **legal coloring** means no adjacent nodes have the same color:
+
+![](https://www.interviewcake.com/images/svgs/graph_coloring__legal_and_illegal_coloring.svg?bust=210)
+
+#### Representations
+
+There are a few different ways to store graphs. Let's take this graph as an example:
+
+![](https://www.interviewcake.com/images/svgs/graph_coloring__example_graph.svg?bust=210)
+
+#### Edge list
+
+A list of all the edges in the graph:
+
+```python
+graph = [[0, 1], [1, 2], [1, 3], [2, 3]]
+```
+Since node 3 has edges to nodes 1 and 2, [1, 3] and [2, 3] are in the edge list.
+
+Sometimes it's helpful to pair our edge list with a list of all the *nodes*. For example, what if a node doesn't have *any* edges connected to it? It wouldn't show up in our edge list at all!
+
+#### Adjacency list
+
+A list where the index represents the node and the value at that index is a list of the node's neighbors:
+
+```python
+graph = [
+    [1],
+    [0, 2, 3],
+    [1, 3],
+    [1, 2],
+]
+```
+
+Since node 3 has edges to nodes 1 and 2, graph[3] has the adjacency list [1, 2].
+
+We could also use [a dictionary](https://www.interviewcake.com/concept/hash-map) where the keys represent the node and the values are the lists of neighbors.
+
+```python
+graph = {
+    0: [1],
+    1: [0, 2, 3],
+    2: [1, 3],
+    3: [1, 2],
+}
+```
+This would be useful if the nodes were represented by strings, objects, or otherwise didn't map cleanly to list indices.
+
+#### Adjacency matrix
+
+A matrix of 0s and 1s indicating whether node x connects to node y (0 means no, 1 means yes).
+
+```python
+graph = [
+    [0, 1, 0, 0],
+    [1, 0, 1, 1],
+    [0, 1, 0, 1],
+    [0, 1, 1, 0],
+]
+```
+
+Since node 3 has edges to nodes 1 and 2, `graph[3][1]` and `graph[3][2]` have value 1.
+
+### Tree Traversals
+### Breadth First Search (BFS)
+
+In a [BFS](https://www.interviewcake.com/concept/bfs), you first explore all the nodes one step away, then all the nodes two steps away, etc..
+
+Breadth-first search is like throwing a stone in the center of a pond. The nodes you explore "ripple out" from the starting point.
+
+Here's a sample tree, with the nodes labeled in the order they'd be visited in a BFS.
+
+![](https://www.interviewcake.com/images/svgs/trees__bfs.svg?bust=210)
+
+### Depth First Search (DFS)
+
+In a [DFS](https://www.interviewcake.com/concept/dfs), you go as deep as possible down one path before backing up and trying a different one.
+
+Depth-first search is like walking through a corn maze. You explore one path, hit a dead end, and go back and try a different one.
+
+Here's a how a DFS would traverse the same example tree:
+
+![](https://www.interviewcake.com/images/svgs/trees__dfs.svg?bust=210)
+
+### Comparing BFS and DFS
+
+- A BFS will find the **shortest path** between the starting point and any other reachable node. A depth-first search will not necessarily find the shortest path.
+- Depth-first search on a binary tree *generally* requires less memory than breadth-first.
+- Depth-first search can be easily implemented with recursion.
+
+You can also use BFS and DFS on [graphs](https://www.interviewcake.com/concept/graph).
+
+**Example**
+```python
+# Edge list representation
+edges = [
+    (0, 1),
+    (1, 2),
+    (1, 3),
+    (2, 3)
+]
+
+# Example: Iterate through edges
+for edge in edges:
+    print(f"Edge between {edge[0]} and {edge[1]}")
+
+# Adjacency list representation
+graph = {
+    0: [1],
+    1: [0, 2, 3],
+    2: [1, 3],
+    3: [1, 2]
+}
+
+# Example: Iterate through neighbors of each node
+for node, neighbors in graph.items():
+    print(f"Node {node} has neighbors {neighbors}")
+
+# Adjacency matrix representation
+graph = [
+    [0, 1, 0, 0],  # Node 0 is connected to Node 1
+    [1, 0, 1, 1],  # Node 1 is connected to Nodes 0, 2, and 3
+    [0, 1, 0, 1],  # Node 2 is connected to Nodes 1 and 3
+    [0, 1, 1, 0]   # Node 3 is connected to Nodes 1 and 2
+]
+
+# Example: Print connections
+for i in range(len(graph)):
+    for j in range(len(graph[i])):
+        if graph[i][j] == 1:
+            print(f"Node {i} is connected to Node {j}")
+
+# Weighted graph using adjacency list
+graph = {
+    0: [(1, 4)],          # Node 0 is connected to Node 1 with weight 4
+    1: [(0, 4), (2, 3)],  # Node 1 is connected to Nodes 0 and 2 with weights 4 and 3
+    2: [(1, 3), (3, 2)],  # Node 2 is connected to Nodes 1 and 3 with weights 3 and 2
+    3: [(2, 2)]           # Node 3 is connected to Node 2 with weight 2
+}
+
+# Example: Print weighted edges
+for node, neighbors in graph.items():
+    for neighbor, weight in neighbors:
+        print(f"Edge from {node} to {neighbor} with weight {weight}")
+
+# Weighted graph using edge list
+edges = [
+    (0, 1, 4),  # Edge from Node 0 to Node 1 with weight 4
+    (1, 2, 3),  # Edge from Node 1 to Node 2 with weight 3
+    (2, 3, 2)   # Edge from Node 2 to Node 3 with weight 2
+]
+
+# Example: Print weighted edges
+for u, v, weight in edges:
+    print(f"Edge from {u} to {v} with weight {weight}")
+
+# bfs implementation
+# Problem link: https://leetcode.com/problems/course-schedule-ii/
+# @Author: Badhan Sen
+
+class Solution:
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        graph = defaultdict(list)
+        indegree = [0] * numCourses
+        for u, v in prerequisites:
+            graph[v].append(u)
+            indegree[u] += 1
+        sources = deque([i for i in range(numCourses) if indegree[i] == 0])
+        res = []
+        while sources:
+            src = sources.popleft()
+            res.append(src)
+            for dest in graph[src]:
+                indegree[dest] -= 1
+                if indegree[dest] == 0:
+                    sources.append(dest)
+                
+        return res if len(res) == numCourses else []
+    
+"""
+Time and space complexity: O(v + e)
+"""
+
+class Solution:
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        graph = defaultdict(list)
+        indegree = [0] * numCourses
+        for u, v in prerequisites:
+            graph[v].append(u)
+            indegree[u] += 1
+        sources = deque([i for i in range(numCourses) if indegree[i] == 0])
+        res = []
+        while sources:
+            size = len(sources)
+            for i in range(size):
+                src = sources.popleft()
+                res.append(src)
+                for dest in graph[src]:
+                    indegree[dest] -= 1
+                    if indegree[dest] == 0:
+                        sources.append(dest)
+        return res if len(res) == numCourses else []
+
+# dfs implementation using colors or number
+class Solution:
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        graph = defaultdict(set)
+        for u, v in prerequisites:
+            graph[v].add(u)
+        res = []
+        visited = defaultdict(lambda: 0)
+        def dfs(src):
+            # Return false if the node is visited and viewed again before completion
+            if visited[src] == 1:
+                return False
+            # Return true if the node is completed processing
+            if visited[src] == 2:
+                return True
+            visited[src] = 1
+            for dest in graph[src]:
+                if not dfs(dest):
+                    return False
+            visited[src] = 2 # Mark as processed
+            res.append(src)
+            return True
+        
+        for c in range(numCourses):
+            dfs(c)
+        return res[::-1] if len(res) == numCourses else []
+    
+"""
+Time and space complexity: O(v + e)
+"""
 ```
