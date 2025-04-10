@@ -1470,6 +1470,28 @@ Time and space complexity: O(v + e)
 
 Problem link: https://leetcode.com/problems/subsets/
 
+Given an integer array nums of unique elements, return all possible subsets (the power set).
+
+The solution set must not contain duplicate subsets. Return the solution in any order.
+
+ 
+```
+Example 1:
+
+Input: nums = [1,2,3]
+Output: [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+Example 2:
+
+Input: nums = [0]
+Output: [[],[0]]
+```
+
+**Constraints:**
+
+- `1 <= nums.length <= 10`
+- `-10 <= nums[i] <= 10`
+- All the numbers of nums are unique.
+
 <details>
 
 <summary>Approach-1: Backtracking [Python Code]</summary>
@@ -1511,7 +1533,7 @@ class Solution:
 </details>
 
 <details>
-<summary>Approach-3 : Pick & Not Pick - 1 [Python Code]</summary>
+<summary>Approach-3 : Pick & Not Pick [Python Code]</summary>
 
 ```python
 class Solution:
@@ -1536,3 +1558,79 @@ class Solution:
 ```
 </details>
 
+---
+
+**2. Subset - II**
+Problem link : https://leetcode.com/problems/subsets-ii/
+
+Given an integer array nums that may contain duplicates, return all possible subsets (the power set).
+
+The solution set must not contain duplicate subsets. Return the solution in any order.
+
+ 
+```
+Example 1:
+
+Input: nums = [1,2,2]
+Output: [[],[1],[1,2],[1,2,2],[2],[2,2]]
+Example 2:
+
+Input: nums = [0]
+Output: [[],[0]]
+```
+**Constraints:**
+
+- `1 <= nums.length <= 10`
+- `-10 <= nums[i] <= 10`
+
+<details>
+<summary>Approach - 1: Brute Force (Backtracking) [Python Code]</summary>
+
+```python
+class Solution:
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        res = set()
+
+        def dfs(i, subset):
+            if i >= len(nums):
+                res.add(tuple(subset))
+                return
+            dfs(i + 1, subset + [nums[i]])
+            dfs(i + 1, subset)
+
+        dfs(0, [])
+
+        return list(res)
+# Time: O(N * 2^N)
+# Space: O(N)  
+```
+</details>
+
+<details>
+<summary>Approach - 2: Optimized (Backtracking) [Python Code]</summary>
+
+```python
+class Solution:
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        res = []
+        
+        def dfs(i, subset):
+            if i >= len(nums):
+                res.append(subset)
+                return
+            dfs(i + 1, subset + [nums[i]])
+            while i + 1 < len(nums) and nums[i] == nums[i + 1]:
+                i += 1
+            dfs(i + 1, subset)
+            
+        dfs(0, [])
+        return res
+    
+# Time: O(N * 2^N)
+# Space: O(N)
+```
+</details>
+
+---
